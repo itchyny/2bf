@@ -1,4 +1,4 @@
-# 2bf - a unix command which generates a Brainfuck code
+# 2bf - generates a Brainfuck code
 ## Installation
 
     git clone https://github.com/itchyny/2bf
