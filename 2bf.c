@@ -95,11 +95,18 @@ void printchar(bf_state* state, unsigned char num) {
 int main(int argc, char *argv[]) {
   unsigned char buffer[64];
   int i, ch, bufferlen;
+  FILE* fp = NULL;
   bf_state state = { 0, 0, { 0 } }, initstate = { 0, 0, { 0 } }, newstate, lateststate;
-  while ((ch = fgetc(stdin)) != EOF) {
+  if (argc >= 2 && strcmp(argv[1], "-") != 0)
+    if ((fp = fopen(argv[1], "r")) == NULL) {
+      fprintf(stderr, "bf: input file error\n");
+      exit(EXIT_FAILURE);
+    }
+  if (fp == NULL) fp = stdin;
+  while ((ch = fgetc(fp)) != EOF) {
     buffer[0] = (unsigned char)ch;
     for (i = 1; i < sizeof(buffer); ++i)
-      if ((ch = fgetc(stdin)) != EOF) buffer[i] = (unsigned char)ch;
+      if ((ch = fgetc(fp)) != EOF) buffer[i] = (unsigned char)ch;
       else break;
     bufferlen = i; newstate = initstate; lateststate = state;
     for (i = 0; i < bufferlen; ++i)
