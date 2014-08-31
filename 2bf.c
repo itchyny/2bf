@@ -55,9 +55,9 @@ void multiple(bf_state* state, bf_state* newstate) {
       ++count;
       loop_count += newstate->memory[i];
       max_index = i + 1;
-      if (min_index < -1)
-        min_index = i - 1;
     }
+    if (min_index < -1 && newstate->memory[i])
+      min_index = i - 1;
   }
   if (count > 1 || (count == 1 && loop_count > 13)) {
     loop_count /= count; loop_count = SQRT(loop_count);
