@@ -103,9 +103,8 @@ int main(int argc, char *argv[]) {
       exit(EXIT_FAILURE);
     }
   if (fp == NULL) fp = stdin;
-  while ((ch = fgetc(fp)) != EOF) {
-    buffer[0] = (unsigned char)ch;
-    for (i = 1; i < sizeof(buffer); ++i)
+  while (1) {
+    for (i = 0; i < sizeof(buffer); ++i)
       if ((ch = fgetc(fp)) != EOF) buffer[i] = (unsigned char)ch;
       else break;
     bufferlen = i; newstate = initstate; lateststate = state;
